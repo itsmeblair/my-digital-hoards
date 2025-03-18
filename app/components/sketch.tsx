@@ -6,6 +6,7 @@ import { useEffect, useRef } from 'react';
 
 let hasRun = false;
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const P5Wrapper = ({ currentFiles }: { currentFiles: any[]}) => {
   const sketchRef = useRef<HTMLDivElement>(null);
   const filesRef = useRef(currentFiles);
@@ -20,12 +21,14 @@ const P5Wrapper = ({ currentFiles }: { currentFiles: any[]}) => {
     // Dynamically import p5
     import('p5').then((p5Module) => {
       const p5 = p5Module.default;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const sketch = new p5((p: any) => {
         console.log("current files: ", filesRef.current)
         // set initial file to first in list
         let currentRandomFile = filesRef.current.length > 0 ? filesRef.current[0] : null
         let currentFileName = currentRandomFile?.Key ?? "";
         let fileIcon: p5.Image;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         let backgroundImg: any;
         let bgWidth, bgHeight;
         let theConfirm, thePrompt;
@@ -36,9 +39,6 @@ const P5Wrapper = ({ currentFiles }: { currentFiles: any[]}) => {
           return filesRef.current.length;
         }
 
-        function getRandomFileFact() {
-          return "really cool";
-        }
 
         async function triggerDownload(fileName: string) {
           try {
@@ -50,7 +50,7 @@ const P5Wrapper = ({ currentFiles }: { currentFiles: any[]}) => {
 
             const url = window.URL.createObjectURL(blob);
 
-            let downloadLink = document.createElement('a');
+            const downloadLink = document.createElement('a');
             downloadLink.href = url;
             downloadLink.download = fileName;
             document.body.appendChild(downloadLink);
@@ -206,7 +206,7 @@ const P5Wrapper = ({ currentFiles }: { currentFiles: any[]}) => {
         }
 
         function drawBackground() {
-          let imgAspect = backgroundImg.width / backgroundImg.height;
+          const imgAspect = backgroundImg.width / backgroundImg.height;
     
           if (p.windowWidth / p.windowHeight > imgAspect) {
             bgHeight = p.windowHeight;
@@ -270,6 +270,7 @@ const P5Wrapper = ({ currentFiles }: { currentFiles: any[]}) => {
             p.textFont('Helvetica-Bold');
 
             // Display up to 24 file names
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             filesRef.current.slice(0, 24).forEach((file: any, index: number) => {
               // Draw blue highlight for first file
               if (index === 0) {

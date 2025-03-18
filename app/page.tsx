@@ -4,6 +4,7 @@ import P5Wrapper from "./components/sketch"
 
 
 export default function Home() {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [currentFiles, setCurrentFiles] = useState<any[]>([]);
   const [hasLoaded, setHasLoaded] = useState(false);
 
@@ -25,11 +26,7 @@ export default function Home() {
   }, [currentFiles, hasLoaded]);
 
   // Get a specific file
-  const getFile = async (key: string) => {
-    const response = await fetch(`/api/s3?key=${encodeURIComponent(key)}`);  // Simplified URL
-    const data = await response.json();
-    console.log(data.data);
-  };
+
 
   console.log("hi ")
   return (

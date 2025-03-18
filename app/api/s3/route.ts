@@ -9,7 +9,9 @@ const s3Client = new S3Client({
   },
 });
 
+
 // Enhanced Fisher-Yates shuffle with multiple passes
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function shuffleArray(array: any[]) {
   // Perform multiple shuffles
   for (let pass = 0; pass < 3; pass++) {
@@ -60,17 +62,18 @@ export async function GET(request: Request) {
     }
     
     // List all files in the bucket with pagination
-    let allFiles = [];
+    let allFiles: any[] = [];
     let continuationToken = undefined;
     
     do {
-      const command = new ListObjectsV2Command({
+      const command: any = new ListObjectsV2Command({
         Bucket: bucketName,
         ContinuationToken: continuationToken,
       });
       
       const response = await s3Client.send(command);
       
+      // eslint-disable-next-line
       if (response.Contents) {
         allFiles = [...allFiles, ...response.Contents];
       }
