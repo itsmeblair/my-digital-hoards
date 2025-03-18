@@ -62,11 +62,12 @@ export async function GET(request: Request) {
     }
     
     // List all files in the bucket with pagination
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let allFiles: any[] = [];
     let continuationToken = undefined;
     
     do {
-      const command: any = new ListObjectsV2Command({
+      const command: ListObjectsV2Command = new ListObjectsV2Command({
         Bucket: bucketName,
         ContinuationToken: continuationToken,
       });

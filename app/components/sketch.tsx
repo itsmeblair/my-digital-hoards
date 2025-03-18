@@ -1,5 +1,7 @@
 'use client'
 
+import type P5 from 'p5';
+import p5 from 'p5';
 import { useEffect, useRef } from 'react';
 // Remove the direct p5 import
 // import p5 from 'p5';
@@ -29,9 +31,10 @@ const P5Wrapper = ({ currentFiles }: { currentFiles: any[]}) => {
         let currentFileName = currentRandomFile?.Key ?? "";
         let fileIcon: p5.Image;
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        let backgroundImg: any;
-        let bgWidth, bgHeight;
-        let theConfirm, thePrompt;
+        let backgroundImg: P5.Image;
+       // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        let bgWidth: any, bgHeight: any;
+        let theConfirm: boolean, thePrompt: string | null;
         let numOfFilesLeft = filesRef.current.length;
         let backgroundVisible = true;
 
